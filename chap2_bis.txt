@@ -1,0 +1,190 @@
+Here is your key: 8f33ac24
+
+Please append it to all of your API requests,
+
+OMDb API: http://www.omdbapi.com/?i=tt3896198&apikey=8f33ac24
+Poster API: http://img.omdbapi.com/?i=tt3896198&h=600&apikey=8f33ac24
+
+
+The bot password for bot name "sakbayeme2015" of user "Sakbayeme2015" was created.
+
+The new password to log in with Sakbayeme2015@sakbayeme2015 is m2i0bbpap4347eb9ip4u7fdairvi9qs6. Please record this for future reference. 
+(For old bots which require the login name to be the same as the eventual username, you can also use Sakbayeme2015 as username and sakbayeme2015@m2i0bbpap4347eb9ip4u7fdairvi9qs6 as password.)
+
+
+import requests
+url="https://raw.githubusercontent.com/kovidgoyal/build-calibre/master/scripts/sources.json"
+data = requests.get(url).json()
+print data[:3]
+print '\n\n'
+for obj in data[:3]:
+    for key, value in obj.items():
+        print('{} --> {}'.format(key, value)) 
+
+
+>>> import json 
+>>> with open('top-rated-movies-01.json', 'r') as json_file: 
+...  json_data = json.load(json_file) 
+... 
+>>> for k in json_data[:3]:
+...  for key, value in k.items(): 
+...   print('{} --> {}'.format(key, value)) 
+
+>>> import json 
+>>> with open('top-rated-movies-01.json', 'r') as json_file: 
+...  json_data = json.load(json_file) 
+... 
+>>> for k in json_data[:]: 
+...  for key, value in k.items(): 
+...   print(key, value) 
+
+
+>>> import requests 
+>>> import json 
+>>> url = 'http://img.omdbapi.com/?i=tt3896198&h=600&apikey=8f33ac24' 
+>>> r = requests.get(url) 
+>>> json_data = r.json()
+>>> r = requests.get(url) 
+>>> json_data = r.json() 
+>>> for l in json_data.keys(): 
+...  print(l + ': ', json_data[l]) 
+
+from urllib.request import urlretrieve
+from urllib.parse import quote
+qstr = quote("Stanford University")
+thing = urlretrieve("https://www.duckduckgo.com/?q=" + qstr) 
+
+from urllib.request import urlretrieve
+from urllib.parse import urlencode
+mydict = {'q': 'whee! Stanford!!!', 'something': 'else'}
+qstr = urlencode(mydict)
+# str resolves to: 'q=whee%21+Stanford%21%21%21&something=else'
+thing = urlretrieve("https://www.duckduckgo.com/?" + qstr) 
+
+import requests
+url_endpoint = 'https://www.duckduckgo.com'
+mydict = {'q': 'whee! Stanford!!!', 'something': 'else'}
+resp = requests.get(url_endpoint, params=mydict) 
+
+
+import requests
+
+S = requests.Session()
+
+URL = "https://en.wikipedia.org/w/api.php"
+
+PARAMS = {
+    "action": "query",
+    "format": "json",
+    "list": "allpages",
+    "apfrom": "jungle"
+}
+
+R = S.get(url=URL, params=PARAMS)
+DATA = R.json()
+
+
+print(DATA) 
+
+
+>>> import requests
+>>> response = requests.get(
+...     'https://en.wikipedia.org/w/api.php',
+...     params={
+...         'action': 'query',
+...         'format': 'json',
+...         'titles': 'Bla Bla Bla',
+...         'prop': 'extracts',
+...         'exintro': True,
+...         'explaintext': True,
+...     }
+... ).json()
+>>> page = next(iter(response['query']['pages'].values()))
+>>> print(page['extract'])
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------
+
+import requests
+
+S = requests.Session()
+URL = "https://test.wikipedia.org/w/api.php"
+FILE_PATH = 'f.jpg'
+
+# Step 1: Retrieve a login token
+PARAMS_1 = {
+    "action": "query",
+    "meta": "tokens",
+    "type": "login",
+    "format": "json"
+}
+
+R = S.get(url=URL, params=PARAMS_1)
+DATA = R.json()
+
+LOGIN_TOKEN = DATA["query"]["tokens"]["logintoken"]
+
+# Step 2: Send a POST request to login. Use of main account for login is not
+# supported. Obtain credentials via Special:BotPasswords
+# (https://www.mediawiki.org/wiki/Special:BotPasswords) for lgname & lgpassword
+PARAMS_2 = {
+    "action": "login",
+    "lgname": "bot_username",
+    "lgpassword": "bot_password",
+    "format": "json",
+    "lgtoken": LOGIN_TOKEN
+}
+
+R = S.post(URL, data=PARAMS_2)
+
+# Step 3: Obtain a CSRF token
+PARAMS_3 = {
+    "action": "query",
+    "meta":"tokens",
+    "format":"json"
+}
+
+R = S.get(url=URL, params=PARAMS_3)
+DATA = R.json()
+
+CSRF_TOKEN = DATA["query"]["tokens"]["csrftoken"]
+
+# Step 4: POST request to upload a file directly
+PARAMS_4 = {
+    "action": "upload",
+    "filename": "file_1.jpg",
+    "format": "json",
+    "token": CSRF_TOKEN,
+    "ignorewarnings": 1
+}
+
+FILE = {'file':('file_1.jpg', open(FILE_PATH, 'rb'), 'multipart/form-data')}
+
+R = S.post(URL, files=FILE, data=PARAMS_4)
+DATA = R.json()
+print(DATA)
+
+>>> import wikipedia
+>>> print(wikipedia.summary("Jennifer Lawrence") 
+>>> print(wikipedia.set_lang("ar"))
+>>> print(wikipedia.summary("facebook"))
+>>> print(wikipedia.search("Jennifer Lawrence") 
+>>> complete_url = wikipedia.page("List of awards and nominations received by Jennifer Lawrence") 
+>>> print(complete_url.url) 
+https://en.wikipedia.org/wiki/List_of_awards_and_nominations_received_by_Jennifer_Lawrence
+>>> import urllib 
+>>> page_image = wikipedia.page("List of awards and nominations received by Jennifer Lawrence") 
+>>> image_link = page_image.images[0] 
+>>> urllib.urlretrieve(image_link, "jennifer.jpg") 
+('jennifer.jpg', <httplib.HTTPMessage instance at 0x7fc2446d4b00>) 
+
+
+
+
+
+
+

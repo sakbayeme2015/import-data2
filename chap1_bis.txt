@@ -1,0 +1,92 @@
+>>> import io
+>>> import requests
+>>> from zipfile import ZipFile
+
+>>> r = requests.get('http://www.contextures.com/SampleData.zip')
+>>> ZipFile(io.BytesIO(r.content)).extractall() 
+>>> df = pd.read_excel('SampleData.xlsx', sheet_name='SalesOrders')
+>>> df.head() 
+
+
+>>> pd.read_html('http://www.contextures.com/xlSampleData01.html') 
+>>> dfs = pd.read_html('http://www.contextures.com/xlSampleData01.html', header=0)
+>>> pd.read_html('https://en.wikipedia.org/wiki/Python_(programming_language)', header=0)[1]
+
+n that case we can use requests to get the HTML and pass the string to pandas!
+>>> pd.read_html('https://httpbin.org/basic-auth/myuser/mypasswd')
+>>> r = requests.get('https://httpbin.org/basic-auth/myuser/mypasswd')
+r.status_code
+>>> r = requests.get('https://httpbin.org/basic-auth/myuser/mypasswd', auth=('myuser', 'mypasswd'))
+r.status_code
+
+>>> r = requests.get('https://en.wikipedia.org/wiki/Python_(programming_language)')
+>>> pd.read_html(r.text, header=0)[1] 
+>>> dfs = pd.read_html('https://en.wikipedia.org/wiki/Timeline_of_programming_languages', header=0)
+dfs[4]
+
+
+https://cdiac.ess-dive.lbl.gov/ftp/ndp030/CSV-FILES/global.1751_2008.csv
+
+
+https://beenje.github.io/blog/posts/parsing-html-tables-in-python-with-pandas/
+https://pythonprogramminglanguage.com/web-scraping-with-pandas-and-beautifulsoup/ 
+
+
+
+import pandas as pd
+import io
+import requests
+url="https://raw.githubusercontent.com/cs109/2014_data/master/countries.csv"
+s=requests.get(url).content
+c=pd.read_csv(io.StringIO(s.decode('utf-8')))
+
+>>> import pandas as pd 
+>>> import urllib 
+>>> url = 'https://s3.amazonaws.com/assets.datacamp.com/production/course_1606/datasets/winequality-red.csv'
+>>> urllib.urlretrieve(url, 'winequality-red.csv') 
+('winequality-red.csv', <httplib.HTTPMessage instance at 0x7f34a563da70>)
+>>> data = pd.read_csv('winequality-red.csv', sep=';') 
+>>> print(data.head()) 
+>>> data.describe()
+>>> data.columns
+>>> data.loc[:,] 
+>>> data.loc[0:150, ['chlorides','total sulfur dioxide','sulphates']]
+
+
+import urllib.request
+
+user_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7'
+
+url = "http://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers"
+headers={'User-Agent':user_agent,} 
+
+request=urllib.request.Request(url,None,headers) #The assembled request
+response = urllib.request.urlopen(request)
+data = response.read() # The data u need
+
+
+>>> import matplotlib.pyplot as plt 
+>>> pd.DataFrame.hist(data.ix[:, 0:1]) 
+array([[<matplotlib.axes._subplots.AxesSubplot object at 0x7f349fa43b10>]],
+      dtype=object)
+>>> plt.xlabel('fixed acidity (g(tartaric acid)/dm$^3$)') 
+<matplotlib.text.Text object at 0x7f349fa5bad0>
+>>> plt.ylabel('count') 
+<matplotlib.text.Text object at 0x7f349ef12a10>
+>>> plt.show() 
+
+>>> import pandas as pd 
+>>> url = 'http://s3.amazonaws.com/assets.datacamp.com/course/importing_data_into_r/latitude.xls'
+>>> data = pd.read_excel(url, sheet_name=None) 
+>>> print(data) 
+>>> print(data.keys()) 
+>>> data['1700'].loc[:,] 
+>>> data['1700'].loc[0:50, 'country'] 
+
+
+
+
+
+
+
+
